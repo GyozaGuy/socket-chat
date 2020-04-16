@@ -1,0 +1,5 @@
+Style/FrozenStringLiteralComment:
+  SupportedStyles: 'never'
+
+Layout/LineLength:
+  Max: 100
