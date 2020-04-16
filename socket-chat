@@ -1,0 +1,30 @@
+#!/usr/bin/env ruby
+
+require 'fileutils'
+require 'gtk3'
+require_relative './application/ui/socket-chat/application'
+
+application_root_path = File.expand_path(__dir__)
+# Dir[File.join(application_root_path, '**', '*.rb')].sort.each { |file| require file }
+
+resource_xml = File.join(application_root_path, 'application', 'resources', 'gresources.xml')
+resource_bin = File.join(application_root_path, 'gresource.bin')
+
+system(
+  'glib-compile-resources',
+  '--target',
+  resource_bin,
+  '--sourcedir',
+  File.dirname(resource_xml),
+  resource_xml
+)
+
+resource = Gio::Resource.load(resource_bin)
+Gio::Resources.register(resource)
+
+at_exit do
+  FileUtils.rm_f(resource_bin)
+end
+
+app = Application.new
+app.run
