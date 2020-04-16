@@ -19,10 +19,6 @@ customElements.define(
     connectedCallback() {
       this.innerHTML = `
         <style>
-          body {
-            background-color: DarkGrey;
-            font-family: sans-serif;
-          }
           #container, #chatView, #textInput, #sendButton {
             border-radius: 4px;
           }
