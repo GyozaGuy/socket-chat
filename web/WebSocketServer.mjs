@@ -107,7 +107,8 @@ export default class {
 HTTP/1.1 101 Switching Protocols
 Upgrade: websocket
 Connection: Upgrade
-Sec-WebSocket-Accept: ${responseKey}\r\n
+Sec-WebSocket-Accept: ${responseKey}
+\r
 `)
     } else {
       const message = 'Invalid WebSocket key'
