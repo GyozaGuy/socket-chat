@@ -25,8 +25,7 @@ export default class {
             console.error(err)
             this.errorCallbacks.forEach(callback => callback(err))
           }
-        } else {
-          this.upgradeConnection(socket, data)
+        } else if (this.upgradeConnection(socket, data)) {
           this.sockets.push(socket)
           upgraded = true
         }
@@ -110,10 +109,14 @@ Connection: Upgrade
 Sec-WebSocket-Accept: ${responseKey}
 \r
 `)
+
+      return true
     } else {
       const message = 'Invalid WebSocket key'
       console.error(message)
       socket.end(`${message}\r\n`)
     }
+
+    return false
   }
 }
