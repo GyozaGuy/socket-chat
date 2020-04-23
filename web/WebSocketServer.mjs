@@ -10,7 +10,6 @@ export default class {
     this.server = new Server(socket => {
       console.info('Client connected')
       let upgraded = false
-      this.sockets.push(socket)
 
       socket.on('end', () => {
         console.info('Client disconnected')
@@ -28,6 +27,7 @@ export default class {
           }
         } else {
           this.upgradeConnection(socket, data)
+          this.sockets.push(socket)
           upgraded = true
         }
       })
