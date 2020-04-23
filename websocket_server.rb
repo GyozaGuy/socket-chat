@@ -4,12 +4,12 @@ require 'socket'
 
 # WebSocketServer class
 class WebSocketServer
-  def initialize(port, start_server = true)
+  def initialize(port)
     @error_callbacks = []
     @message_callbacks = []
     @sockets = []
     @server = TCPServer.new('localhost', port)
-    start if start_server
+    start
   end
 
   def get_payload(socket)
