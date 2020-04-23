@@ -107,10 +107,7 @@ class WebSocketServer
       raise 'Invalid websocket key'
     end
 
-    response_key = Digest::SHA1.base64digest([
-      websocket_key,
-      '258EAFA5-E914-47DA-95CA-C5AB0DC85B11'
-    ].join)
+    response_key = Digest::SHA1.base64digest("#{websocket_key}258EAFA5-E914-47DA-95CA-C5AB0DC85B11")
 
     socket.write <<~HEADER
       HTTP/1.1 101 Switching Protocols
