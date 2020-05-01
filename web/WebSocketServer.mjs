@@ -48,7 +48,7 @@ export default class {
   }
 
   getPayload(data) {
-    const firstByte = data.readUInt8()
+    const firstByte = data[0]
     const fin = firstByte & 0b10000000
     const opcode = firstByte & 0b00001111
 
@@ -60,7 +60,7 @@ export default class {
       throw 'Continuations not supported'
     }
 
-    const secondByte = data.readUInt8(1)
+    const secondByte = data[1]
     const isMasked = secondByte & 0b10000000
     const payloadSize = secondByte & 0b01111111
 
@@ -74,10 +74,10 @@ export default class {
 
     const mask = Array(4)
       .fill()
-      .map((_, i) => data.readUInt8(2 + i))
+      .map((_, i) => data[2 + i])
     const maskedData = Array(payloadSize)
       .fill()
-      .map((_, i) => data.readUInt8(6 + i))
+      .map((_, i) => data[6 + i])
     const unmaskedData = maskedData.map((byte, i) => byte ^ mask[i % 4])
     const newBuf = Buffer.from(unmaskedData)
 
