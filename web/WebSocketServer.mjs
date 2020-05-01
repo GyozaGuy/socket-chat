@@ -7,7 +7,7 @@ export default class {
     this.messageCallbacks = []
     this.sockets = []
 
-    this.server = new Server(socket => {
+    const server = new Server(socket => {
       console.info('Client connected')
       let upgraded = false
 
@@ -34,7 +34,7 @@ export default class {
       console.info(`WebSocket server listening on port ${port}`)
     })
 
-    this.server.on('error', err => {
+    server.on('error', err => {
       throw err
     })
   }
