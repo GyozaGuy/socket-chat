@@ -81,10 +81,7 @@ class WebSocketClient
 
     http_response = ''
 
-    accept_key = Digest::SHA1.base64digest([
-      random_key,
-      '258EAFA5-E914-47DA-95CA-C5AB0DC85B11'
-    ].join)
+    accept_key = Digest::SHA1.base64digest("#{random_key}258EAFA5-E914-47DA-95CA-C5AB0DC85B11")
 
     while (line = @socket.gets) && line != "\r\n"
       http_response += line
